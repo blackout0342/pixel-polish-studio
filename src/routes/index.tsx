@@ -1,26 +1,33 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { AppProvider } from "@/contexts/AppContext";
+import { WelcomeOverlay } from "@/components/WelcomeOverlay";
+import { SiteHeader } from "@/components/SiteHeader";
+import { HeroTitle } from "@/components/HeroTitle";
+import { ContentSections } from "@/components/ContentSections";
 
 export const Route = createFileRoute("/")({
   component: Index,
+  head: () => ({
+    meta: [
+      { title: "PETERLUTSCHTFUESSE — Business Test Site" },
+      {
+        name: "description",
+        content:
+          "A smooth, animated business test website with theme and language selection.",
+      },
+    ],
+  }),
 });
 
-// IMPORTANT: Replace this placeholder. For sites with multiple pages (About, Services, Contact, etc.),
-// create separate route files (about.tsx, services.tsx, contact.tsx) — don't put all pages in this file.
-function PlaceholderIndex() {
-  return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
-  );
-}
-
 function Index() {
-  return <PlaceholderIndex />;
+  return (
+    <AppProvider>
+      <WelcomeOverlay />
+      <SiteHeader />
+      <main>
+        <HeroTitle />
+        <ContentSections />
+      </main>
+    </AppProvider>
+  );
 }
